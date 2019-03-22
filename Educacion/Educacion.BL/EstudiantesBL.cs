@@ -22,9 +22,7 @@ namespace Educacion.BL
 
         public List<Estudiantes> ObtenerEstudiantes()
         {
-            listadeEstudiantes = _contexto.Estudiantes
-                .Include("Curso")
-               .ToList();
+            listadeEstudiantes = _contexto.Estudiantes.ToList();
                 
             return listadeEstudiantes;
 
@@ -43,9 +41,8 @@ namespace Educacion.BL
                 estudiantesExistente.Nombre = estudiantes.Nombre;
                 estudiantesExistente.Direccion = estudiantes.Direccion;
                 estudiantesExistente.Telefono = estudiantes.Telefono;
-                estudiantesExistente.CursoId = estudiantes.CursoId;
                 estudiantesExistente.Activo = estudiantes.Activo;
-                estudiantesExistente.UrlImagen = estudiantes .UrlImagen;
+                estudiantesExistente.UrlImagen = estudiantes.UrlImagen;
             }
                 _contexto.SaveChanges();
 
@@ -53,8 +50,7 @@ namespace Educacion.BL
 
         public Estudiantes ObtenerEstudiante(int id)
         {
-            var estudiantes = _contexto.Estudiantes
-            .Include("Curso").FirstOrDefault(p => p.Id == id);
+            var estudiantes = _contexto.Estudiantes.FirstOrDefault(p => p.Id == id);
             return estudiantes;
 
         }

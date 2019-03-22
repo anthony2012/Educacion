@@ -1,0 +1,129 @@
+﻿@model Educacion.BL.Notas
+
+@{
+    ViewBag.Title = "Notas Detalle";
+}
+
+<h2/>Notas Detalle no: @Model.Id </ h2 >
+
+
+    <p>
+       
+        @Html.ActionLink("Nueva nota", "Crear", new { id = Model.Id })
+    </p>
+
+<table class="table">
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.Curso)
+        </td>
+        <td>
+            @Model.Curso.Curso
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.Anio)
+        </td>
+        <td>
+            @Model.Anio
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.Estudiante)
+        </td>
+        <td>
+            @Model.Estudiante.Nombre
+        </td>
+        <td align="right">
+            <img src="@Model.Estudiante.UrlImagen" alt="@Model.Estudiante.Nombre" style="max-width: 100px;" />
+        </td>
+
+    </tr>
+
+    <tr>
+       
+        <td align="right"></td>
+      
+        <th>
+          Parcial 1
+        </th>
+        <th>
+          Parcial 2
+        </th>
+
+        <th>
+         Parcial 3
+        </th>
+
+        <th>
+          Parcial 4
+        </th>
+
+        <th>
+            Nota Final
+        </th>
+
+        
+    </tr>
+
+
+
+</table>
+
+
+    <table class="table">
+
+
+        @foreach (var item in Model.ListadeNotasDetalle)
+        {
+            <tr>
+                
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Materia)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.PrimerParcial)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.SegundoParcial)
+                </td>
+
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.TercerParcial)
+                </td>
+
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.CuartoParcial)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.NotaFinal)
+                </td>
+
+
+            </tr>
+
+        }
+
+    </table>
+
+@Html.ActionLink("Regresar a Notas", "Index", "Notas")
+
+
+
+
+
+
+
+
+ 
+
