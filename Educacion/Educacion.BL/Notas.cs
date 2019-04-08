@@ -34,7 +34,7 @@ namespace Educacion.BL
         public int Id { get; set; }
 
         public int NotaId { get; set; }
-        public Notas Nota { get; set; }        
+        public Notas Nota { get; set; }
 
         public int MateriaId { get; set; }
         public Materias Materia { get; set; }
@@ -43,8 +43,8 @@ namespace Educacion.BL
         public int SegundoParcial { get; set; }
         public int TercerParcial { get; set; }
         public int CuartoParcial { get; set; }
-
+        public int NotaTotal { get; set; }
         public int NotaFinal { get; set; }
-    }
 
+    }
 }

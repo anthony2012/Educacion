@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Educacion.BL
 {
-   public class EstudiantesBL
+    public class EstudiantesBL
     {
 
         Contexto _contexto;
@@ -19,10 +19,21 @@ namespace Educacion.BL
             listadeEstudiantes = new List<Estudiantes>();
         }
 
-
         public List<Estudiantes> ObtenerEstudiantes()
         {
-            listadeEstudiantes = _contexto.Estudiantes.ToList();
+            listadeEstudiantes = _contexto.Estudiantes
+                 .OrderBy(r => r.Nombre)
+                .ToList();
+
+            return listadeEstudiantes;
+        }
+
+
+        public List<Estudiantes> ObtenerEstudiantesActivos()
+        {
+            listadeEstudiantes = _contexto.Estudiantes.Where(r => r.Activo == true)
+                 .OrderBy(r => r.Nombre)
+                .ToList();
                 
             return listadeEstudiantes;
 
@@ -41,6 +52,7 @@ namespace Educacion.BL
                 estudiantesExistente.Nombre = estudiantes.Nombre;
                 estudiantesExistente.Direccion = estudiantes.Direccion;
                 estudiantesExistente.Telefono = estudiantes.Telefono;
+              
                 estudiantesExistente.Activo = estudiantes.Activo;
                 estudiantesExistente.UrlImagen = estudiantes.UrlImagen;
             }

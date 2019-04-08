@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Educacion.BL
 {
-  public  class NotasBL
+    public class NotasBL
     {
         Contexto _contexto;
 
@@ -24,6 +24,7 @@ namespace Educacion.BL
             listadeNotas = _contexto.Notas
                 .Include("Estudiante")
                 .Include("Curso")
+               
                .ToList();
 
             return listadeNotas;
@@ -34,7 +35,8 @@ namespace Educacion.BL
         {
             var listadeNotasDetalle = _contexto.NotasDetalle
                 .Include("Materia")
-                .Where(o => o.NotaId  == notasId ).ToList();
+          
+                .Where(o => o.NotaId == notasId).ToList();
 
             return listadeNotasDetalle;
         }
@@ -57,6 +59,16 @@ namespace Educacion.BL
             return notas;
         }
 
+        public List<NotasDetalle> ObtenerNotasPorMateria(int materiaId)
+        {
+            var notasDetalle = _contexto.NotasDetalle
+                .Include("Nota.Estudiante")
+                .Where(r => r.MateriaId == materiaId)
+                .ToList();
+
+            return notasDetalle;
+        }
+
         public void GuardarNotas(Notas notas)
 
         {
@@ -70,34 +82,40 @@ namespace Educacion.BL
                 notasExistente.CursoId = notas.CursoId;
                 notasExistente.EstudianteId = notas.EstudianteId;
                 notasExistente.Anio = notas.Anio;
-                notasExistente.Activo =  notas.Activo;
+                notasExistente.Activo = notas.Activo;
             }
             _contexto.SaveChanges();
         }
 
         public void GuardarNotasDetalle(NotasDetalle notasDetalle)
         {
-           
+            var materia = _contexto.Materias.Find(notasDetalle.MateriaId);
 
 
-            notasDetalle.NotaFinal = notasDetalle.PrimerParcial + notasDetalle.SegundoParcial + notasDetalle.TercerParcial + notasDetalle.CuartoParcial; 
-
+            notasDetalle.NotaTotal = (notasDetalle.PrimerParcial + notasDetalle.SegundoParcial + notasDetalle.TercerParcial + notasDetalle.CuartoParcial);
+            notasDetalle.NotaFinal = notasDetalle.NotaTotal / 4;
             _contexto.NotasDetalle.Add(notasDetalle);
 
             var notas = _contexto.Notas.Find(notasDetalle.NotaId);
-           
+            
             _contexto.SaveChanges();
         }
 
         public void EliminarNotasDetalle(int id)
         {
+            var notasDetalle = _contexto.NotasDetalle.Find(id);
+            notasDetalle.NotaFinal = notasDetalle.NotaFinal * 4;
+            notasDetalle.NotaTotal = notasDetalle.NotaTotal-notasDetalle.NotaFinal;
+          
+
+
+            var notas = _contexto.Notas.Find(notasDetalle.NotaId);
+            _contexto.NotasDetalle.Remove(notasDetalle);
 
             
-            var notasDetalle = _contexto.NotasDetalle.Find(id);
-            _contexto.NotasDetalle.Remove(notasDetalle);
+
 
             _contexto.SaveChanges();
         }
     }
 }
-
