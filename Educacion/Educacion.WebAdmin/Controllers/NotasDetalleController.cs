@@ -21,7 +21,7 @@ namespace Educacion.WebAdmin.Controllers
         public ActionResult Index(int id)
         {
             var notas = _notasBL.ObtenerNotas(id);
-            notas .ListadeNotasDetalle = _notasBL.ObtenerNotasDetalle(id);
+            notas.ListadeNotasDetalle = _notasBL.ObtenerNotasDetalle(id);
 
             return View(notas);
         }
@@ -30,10 +30,10 @@ namespace Educacion.WebAdmin.Controllers
         public ActionResult Crear(int id)
         {
             var nuevaNotasDetalle = new NotasDetalle();
-             nuevaNotasDetalle.NotaId = id ;
+            nuevaNotasDetalle.NotaId = id;
 
-            var materias= _materiasBL.ObtenerMaterias();
-            ViewBag.MateriasId = new SelectList(materias , "Id");
+            var materias = _materiasBL.ObtenerMateriasActivos();
+            ViewBag.MateriaId = new SelectList(materias, "Id", "Materia");
 
             return View(nuevaNotasDetalle);
 
@@ -41,38 +41,42 @@ namespace Educacion.WebAdmin.Controllers
 
 
         [HttpPost]
-        public ActionResult Crear(NotasDetalle NotasDetalle)
+        public ActionResult Crear(NotasDetalle notasDetalle)
         {
             if (ModelState.IsValid)
             {
-                if (NotasDetalle.MateriaId == 0)
+                if (notasDetalle.MateriaId == 0)
                 {
-                    ModelState.AddModelError("Materia", "Seleccione una MAteria");
-                    return View(NotasDetalle);
+                    ModelState.AddModelError("MateriaId", "Seleccione una Materia");
+                    return View(notasDetalle);
                 }
 
-                _notasBL.GuardarNotasDetalle(NotasDetalle);
-                return RedirectToAction("Index", new { id = NotasDetalle.NotaId  });
+                _notasBL.GuardarNotasDetalle(notasDetalle);
+                return RedirectToAction("Index", new { id = notasDetalle.NotaId });
             }
 
-            var materias = _materiasBL.ObtenerMaterias();
-            ViewBag.MateriaId = new SelectList(materias , "Id");
+            var materias = _materiasBL.ObtenerMateriasActivos();
+            ViewBag.MateriaId = new SelectList(materias, "Id", "Materia");
 
-            return View(NotasDetalle);
+            return View(notasDetalle);
+
         }
+
+
+
         public ActionResult Eliminar(int id)
         {
-            var NotasDetalle = _notasBL.ObtenerNotasDetallePorId(id);
+            var notasDetalle = _notasBL.ObtenerNotasDetallePorId(id);
 
-            return View(NotasDetalle);
+            return View(notasDetalle);
         }
 
         [HttpPost]
-        public ActionResult Eliminar(NotasDetalle NotasDetalle)
+        public ActionResult Eliminar(NotasDetalle notasDetalle)
         {
-            _notasBL.EliminarNotasDetalle(NotasDetalle.Id);
+            _notasBL.EliminarNotasDetalle(notasDetalle.Id);
 
-            return RedirectToAction("Index", new { id = NotasDetalle.NotaId  });
+            return RedirectToAction("Index", new { id = notasDetalle.NotaId });
         }
 
     }

@@ -10,10 +10,15 @@ namespace Educacion.WebAdmin.Controllers
     public class MateriasController : Controller
     {
         MateriasBL _materiasBL;
+      
+
 
         public MateriasController()
         {
             _materiasBL = new MateriasBL();
+   
+
+
         }
 
         // GET: Materias
@@ -28,8 +33,14 @@ namespace Educacion.WebAdmin.Controllers
         public ActionResult Crear()
         {
             var nuevoMaterias = new Materias();
+           
+          // var cursos = _cursosBL.ObtenerCursos();
+
+            //ViewBag.CursoId =
+              //  new SelectList(cursos, "Id", "Curso");
 
             return View(nuevoMaterias);
+
         }
 
 
@@ -60,8 +71,11 @@ namespace Educacion.WebAdmin.Controllers
         public ActionResult Editar(int id)
         {
             var materias = _materiasBL.ObtenerMaterias(id);
+            
+           
 
             return View(materias);
+
         }
 
         [HttpPost]
@@ -75,22 +89,23 @@ namespace Educacion.WebAdmin.Controllers
         public ActionResult Detalle(int id)
         {
             var materias = _materiasBL.ObtenerMaterias(id);
+          
 
+          
             return View(materias);
         }
 
         public ActionResult Eliminar(int id)
         {
             var materias = _materiasBL.ObtenerMaterias(id);
+           
 
             return View(materias);
         }
-
         [HttpPost]
         public ActionResult Eliminar(Materias materias)
         {
             _materiasBL.EliminarMaterias(materias.Id);
-
             return RedirectToAction("Index");
         }
     }

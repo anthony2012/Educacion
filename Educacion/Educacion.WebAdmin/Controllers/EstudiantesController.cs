@@ -32,7 +32,7 @@ namespace Educacion.WebAdmin.Controllers
         public ActionResult Crear()
         {
             var nuevoEstudiantes = new Estudiantes();
-            var cursos = _cursosBL.ObtenerCursos();
+            var cursos = _cursosBL.ObtenerCursosActivos();
 
             ViewBag.CursoId = 
                 new SelectList(cursos, "Id", "Curso");
@@ -72,9 +72,9 @@ namespace Educacion.WebAdmin.Controllers
         public ActionResult Editar(int id)
         {
             var estudiantes = _estudiantesBL.ObtenerEstudiante(id);
-            var cursos = _cursosBL.ObtenerCursos();
+            var cursos = _cursosBL.ObtenerCursosActivos();
 
-            //ViewBag.CursoId =
+          //  ViewBag.CursoId =
             //    new SelectList(cursos, "Id", "Curso", estudiantes.CursoId);
 
             return View(estudiantes);
@@ -92,10 +92,10 @@ namespace Educacion.WebAdmin.Controllers
         public ActionResult Detalle(int id)
         {
             var estudiantes = _estudiantesBL.ObtenerEstudiante(id);
-            var cursos = _cursosBL.ObtenerCursos();
+            var cursos = _cursosBL.ObtenerCursosActivos();
 
-            //ViewBag.CursoId =
-            //    new SelectList(cursos, "Id", "Curso", estudiantes.CursoId);
+         //   ViewBag.CursoId =
+           //     new SelectList(cursos, "Id", "Curso", estudiantes.CursoId);
 
 
             return View(estudiantes);
@@ -104,9 +104,9 @@ namespace Educacion.WebAdmin.Controllers
         public ActionResult Eliminar(int id)
         {
             var estudiantes = _estudiantesBL.ObtenerEstudiante(id);
-            var cursos = _cursosBL.ObtenerCursos();
+            var cursos = _cursosBL.ObtenerCursosActivos();
 
-            //ViewBag.CursoId =
+          //  ViewBag.CursoId =
             //    new SelectList(cursos, "Id", "Curso", estudiantes.CursoId);
 
             return View(estudiantes);

@@ -9,7 +9,6 @@ namespace Educacion.WebAdmin.Controllers
 {
     public class NotasController : Controller
     {
-
         NotasBL _notasBL;
         EstudiantesBL _estudiantesBL;
         CursosBL _cursosBL;
@@ -33,10 +32,10 @@ namespace Educacion.WebAdmin.Controllers
         public ActionResult Crear()
         {
             var nuevaNota = new Notas();
-            var estudiantes = _estudiantesBL.ObtenerEstudiantes();
+            var estudiantes = _estudiantesBL.ObtenerEstudiantesActivos();
             ViewBag.EstudianteId = new SelectList(estudiantes, "Id", "Nombre");
 
-            var cursos = _cursosBL.ObtenerCursos();
+            var cursos = _cursosBL.ObtenerCursosActivos();
             ViewBag.CursoId = new SelectList(cursos, "Id", "Curso");
 
             return View(nuevaNota);
@@ -46,10 +45,10 @@ namespace Educacion.WebAdmin.Controllers
         [HttpPost]
         public ActionResult Crear(Notas Notas)
         {
-            var estudiantes = _estudiantesBL.ObtenerEstudiantes();
+            var estudiantes = _estudiantesBL.ObtenerEstudiantesActivos();
             ViewBag.EstudianteId = new SelectList(estudiantes, "Id", "Nombre");
 
-            var cursos = _cursosBL.ObtenerCursos();
+            var cursos = _cursosBL.ObtenerCursosActivos();
             ViewBag.CursoId = new SelectList(cursos, "Id", "Curso");
 
             if (ModelState.IsValid)
@@ -81,17 +80,17 @@ namespace Educacion.WebAdmin.Controllers
         {
             var Notas = _notasBL.ObtenerNotas(id);
 
-            var estudiantes = _estudiantesBL.ObtenerEstudiantes();
+            var estudiantes = _estudiantesBL.ObtenerEstudiantesActivos();
             ViewBag.EstudianteId = new SelectList(estudiantes, "Id", "Nombre", Notas.EstudianteId);
 
-            var cursos = _cursosBL.ObtenerCursos();
+            var cursos = _cursosBL.ObtenerCursosActivos();
             ViewBag.CursoId = new SelectList(cursos, "Id", "Curso", Notas.CursoId);
 
             return View(Notas);
         }
 
         [HttpPost]
-        public ActionResult Editar(Notas  Notas)
+        public ActionResult Editar(Notas Notas)
         {
             if (ModelState.IsValid)
             {
@@ -108,18 +107,18 @@ namespace Educacion.WebAdmin.Controllers
                     return View(Notas);
                 }
 
-                _notasBL.GuardarNotas(Notas );
+                _notasBL.GuardarNotas(Notas);
 
                 return RedirectToAction("Index");
             }
 
-            var estudiantes = _estudiantesBL.ObtenerEstudiantes();
+            var estudiantes = _estudiantesBL.ObtenerEstudiantesActivos();
             ViewBag.EstudianteId = new SelectList(estudiantes, "Id", "Nombre", Notas.EstudianteId);
 
-            var cursos = _cursosBL.ObtenerCursos();
+            var cursos = _cursosBL.ObtenerCursosActivos();
             ViewBag.CursoId = new SelectList(cursos, "Id", "Curso", Notas.CursoId);
 
-            return View(Notas );
+            return View(Notas);
         }
 
 
@@ -128,7 +127,7 @@ namespace Educacion.WebAdmin.Controllers
         {
             var Notas = _notasBL.ObtenerNotas(id);
 
-            return View(Notas );
+            return View(Notas);
         }
     }
- }
+}

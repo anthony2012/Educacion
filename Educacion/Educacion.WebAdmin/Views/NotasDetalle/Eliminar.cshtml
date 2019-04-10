@@ -6,13 +6,13 @@
 
 <h2>Eliminar</h2>
 
-<h3>Esta Seguro que desea Eliminar este Registro ?</h3>
+<h3>&iquest;Esta seguro que desea eliminar este registro?</h3>
 <div>
     <h4>NotasDetalle</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.NotaId)
+            Nota No:
         </dt>
 
         <dd>
@@ -24,7 +24,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.MateriaId)
+            @Html.DisplayFor(model => model.Materia.Materia)
         </dd>
 
         <dt>
@@ -59,6 +59,7 @@
             @Html.DisplayFor(model => model.CuartoParcial)
         </dd>
 
+    
         <dt>
             @Html.DisplayNameFor(model => model.NotaFinal)
         </dt>
@@ -72,9 +73,11 @@
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
+        @Html.HiddenFor(model => model.NotaId)
+
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
-            return RedirectToAction("Index", new { id = NotasDetalle.NotaId });
+            @Html.ActionLink("Back to List", "Index")
         </div>
     }
 </div>
