@@ -59,16 +59,6 @@ namespace Educacion.BL
             return notas;
         }
 
-        public List<NotasDetalle> ObtenerNotasPorMateria(int materiaId)
-        {
-            var notasDetalle = _contexto.NotasDetalle
-                .Include("Nota.Estudiante")
-                .Where(r => r.MateriaId == materiaId)
-                .ToList();
-
-            return notasDetalle;
-        }
-
         public void GuardarNotas(Notas notas)
 
         {
