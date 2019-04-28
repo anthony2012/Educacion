@@ -9,18 +9,32 @@ namespace Educacion.Web.Controllers
 {
     public class HomeController : Controller
     {
+        MateriasBL _materiasBL;
+        NotasBL _notasBL;
+
+        public HomeController()
+        {
+            _materiasBL = new MateriasBL();
+            _notasBL = new NotasBL();
+        }
 
         public ActionResult Index()
         {
-            var estudiantesBL = new EstudiantesBL();
-            var listadeEstudiantes = estudiantesBL.ObtenerEstudiantes();
+            var materias = _materiasBL.ObtenerMateriasActivos();
+            ViewBag.MateriaId = new SelectList(materias, "Id", "Materia");
 
-
-            return View(listadeEstudiantes);
-
+            return View();
         }
 
-    } 
-        
-    
+        [HttpPost]
+        public ActionResult Index(Materias materia)
+        {
+            var materias = _materiasBL.ObtenerMateriasActivos();
+            ViewBag.MateriaId = new SelectList(materias, "Id", "Materia");
+
+            ViewBag.NotasDetalle = _notasBL.ObtenerNotasPorMateria(materia.Id);
+
+            return View();
+        }
+    }
 }
