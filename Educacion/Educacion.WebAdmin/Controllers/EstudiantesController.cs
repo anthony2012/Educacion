@@ -7,8 +7,11 @@ using System.Web.Mvc;
 
 namespace Educacion.WebAdmin.Controllers
 {
+    [Authorize]
     public class EstudiantesController : Controller
     {
+
+
         EstudiantesBL _estudiantesBL;
         CursosBL _cursosBL;
         
